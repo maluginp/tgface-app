@@ -1,4 +1,4 @@
-package com.myapplication
+package ru.tgface
 
 import MainView
 import android.os.Bundle
