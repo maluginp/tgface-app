@@ -36,6 +36,7 @@ kotlin {
                 api("androidx.appcompat:appcompat:1.6.1")
                 api("androidx.core:core-ktx:1.10.1")
                 implementation(compose.preview)
+                implementation(libs.ktor.client.core)
             }
         }
         val iosX64Main by getting
