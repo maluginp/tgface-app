@@ -1,4 +1,4 @@
-package ru.tgface.presentation
+package ru.tgface.presentation.signin
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,6 +12,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -24,17 +25,20 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import io.ktor.client.HttpClient
-import ru.tgface.data.TgFaceWebClient
 import kotlinx.coroutines.launch
+import ru.tgface.presentation.getViewModel
 
 @Composable
-fun SignInScreen(
-    viewModel: AppViewModel,
-) {
+fun SignInScreen() {
+    val viewModel = getViewModel<SignInViewModel>()
+
     var email by remember { mutableStateOf(TextFieldValue("")) }
     var password by remember { mutableStateOf(TextFieldValue("")) }
     val scope = rememberCoroutineScope()
+
+    LaunchedEffect(scope) {
+        viewModel.checkAuth()
+    }
 
     Column(
         modifier = Modifier.fillMaxSize().padding(24.dp),

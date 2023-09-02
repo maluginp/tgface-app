@@ -1,7 +1,9 @@
 package ru.tgface.data
 
 import com.russhwolf.settings.Settings
+import com.russhwolf.settings.get
 import com.russhwolf.settings.set
+import io.github.aakira.napier.Napier
 import ru.tgface.data.models.SignInRequest
 import ru.tgface.data.models.SignInResponse
 import io.ktor.client.HttpClient
@@ -16,6 +18,14 @@ import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import io.ktor.client.plugins.logging.Logger
+import io.ktor.client.request.HttpRequestBuilder
+import io.ktor.client.request.bearerAuth
+import io.ktor.client.request.get
+import io.ktor.client.request.header
+import io.ktor.client.request.headers
+import io.ktor.http.HeadersBuilder
+import io.ktor.http.HttpStatusCode
+import ru.tgface.data.models.BotListItemResponse
 
 class TgFaceWebClient {
 
@@ -43,7 +53,8 @@ class TgFaceWebClient {
             contentType(ContentType.Application.Json)
             setBody(SignInRequest(email = email, password = password))
         }.body<SignInResponse>()
-
+//        Napier.d("Saving token in prefs = ${response.token}", tag = TAG)
+        println("Saving token in prefs = ${response.token}")
         prefs[TOKEN_KEY] = response.token
         true
     } catch (e: Throwable) {
@@ -51,8 +62,31 @@ class TgFaceWebClient {
         false
     }
 
-    companion object {
+    suspend fun getBotList(): List<BotListItemResponse> {
+        val response = client.get("$baseUrl/bot") {
+            addAuthHeader()
+            contentType(ContentType.Application.Json)
+        }
 
+        if (response.status == HttpStatusCode.Unauthorized) {
+            println("Unauthorized")
+        }
+
+        return if (response.status == HttpStatusCode.OK) {
+            response.body()
+        } else {
+            listOf()
+        }
+    }
+
+    private fun HttpRequestBuilder.addAuthHeader() {
+        bearerAuth(prefs[TOKEN_KEY, ""])
+    }
+
+    fun hasToken() = prefs[TOKEN_KEY, ""].isNotEmpty()
+
+    companion object {
+        private const val TAG = "TgFaceWebClient"
         private const val TOKEN_KEY = "token"
     }
 }

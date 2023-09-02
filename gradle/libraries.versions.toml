@@ -3,6 +3,9 @@ ktorVersion = "2.3.4"
 kotlinVersion = "1.9.0"
 kotlinSerializationVersion = "1.6.0"
 multiplatformSettingsVersion = "1.0.0"
+koinVersion = "3.4.0"
+koinComposeVersion = "1.0.3"
+napierVersion = "2.6.1"
 
 [libraries]
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktorVersion" }
@@ -17,6 +20,11 @@ kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serializa
 multiplatform-settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatformSettingsVersion" }
 multiplatform-settings-noarg = { module = "com.russhwolf:multiplatform-settings-no-arg", version.ref = "multiplatformSettingsVersion" }
 
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koinVersion"}
+koin-test = { module = "io.insert-koin:koin-test", version.ref = "koinVersion"}
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinVersion" }
+koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koinComposeVersion" }
+napier = { module = "io.github.aakira:napier", version.ref = "napierVersion" }
 
 [plugins]
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinVersion" }
