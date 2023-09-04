@@ -9,7 +9,7 @@ import ru.tgface.presentation.signin.SignInViewModel
 import ru.tgface.presentation.dashboard.DashboardViewModel
 import ru.tgface.presentation.Navigation
 import ru.tgface.presentation.NavigationImpl
-
+import ru.tgface.presentation.botDetails.BotOnlineStatusViewModel
 
 fun initKoin(appDeclaration: KoinAppDeclaration = {}) =
     startKoin {
@@ -27,6 +27,10 @@ val appModule = module {
 
     factory {
         DashboardViewModel(get(), get())
+    }
+
+    factory {
+        BotOnlineStatusViewModel(get())
     }
 
     single {

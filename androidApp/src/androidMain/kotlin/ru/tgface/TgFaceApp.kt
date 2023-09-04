@@ -3,6 +3,7 @@ package ru.tgface
 import android.app.Application
 import android.content.Context
 import android.content.pm.ApplicationInfo
+import initLogger
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.logger.Level
@@ -15,6 +16,7 @@ class TgFaceApp : Application() {
             androidLogger(if (isDebug()) Level.ERROR else Level.NONE)
             androidContext(this@TgFaceApp)
         }
+        initLogger()
     }
 }
 

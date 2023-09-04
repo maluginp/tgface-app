@@ -32,5 +32,7 @@ fun BotDetailsScreen(botId: Int) {
         }
     ) {
         Text("BotDetails = $botId")
+
+        BotOnlineStatusView(botId)
     }
 }
