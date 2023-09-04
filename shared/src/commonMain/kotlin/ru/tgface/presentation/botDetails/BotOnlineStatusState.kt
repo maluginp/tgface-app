@@ -9,7 +9,6 @@ data class BotOnlineStatusState(
     val isError: Boolean,
     val status: BotStatus,
     val isOnline: Boolean,
-    val isWebhookUrlValid: Boolean,
     val pendingUpdateCount: Int,
     val lastErrorMessage: String?,
     val lastErrorDate: Long?

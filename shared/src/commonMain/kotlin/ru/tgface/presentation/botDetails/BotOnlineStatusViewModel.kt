@@ -17,7 +17,6 @@ class BotOnlineStatusViewModel(
             isError = false,
             isOnline = false,
             status = BotStatus.Suspend,
-            isWebhookUrlValid = false,
             pendingUpdateCount = 0,
             lastErrorMessage = null,
             lastErrorDate = null
@@ -39,8 +38,7 @@ class BotOnlineStatusViewModel(
                 copy(
                     isLoading = false,
                     status = BotStatus.from(res.status) ?: BotStatus.Suspend,
-                    isOnline = res.isOnline,
-                    isWebhookUrlValid = res.isWebhookUrlValid,
+                    isOnline = res.isOnline && res.isWebhookUrlValid,
                     pendingUpdateCount = res.pendingUpdateCount,
                     lastErrorMessage = res.lastErrorMessage,
                     lastErrorDate = res.lastErrorDate,

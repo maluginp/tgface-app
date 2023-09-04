@@ -34,7 +34,7 @@ fun BotStatusView(
                 BotStatus.Blocked -> "Blocked"
                 BotStatus.Suspend -> "Suspend"
             },
-            color = Color.White,
+            color = Color.Black
         )
     }
 }

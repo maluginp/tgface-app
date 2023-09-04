@@ -2,6 +2,7 @@
 ktorVersion = "2.3.4"
 kotlinVersion = "1.9.0"
 kotlinSerializationVersion = "1.6.0"
+kotlinDatetimeVersion = "0.4.1"
 multiplatformSettingsVersion = "1.0.0"
 koinVersion = "3.4.0"
 koinComposeVersion = "1.0.3"
@@ -16,6 +17,7 @@ ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx
 ktor-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktorVersion" }
 
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinSerializationVersion" }
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinDatetimeVersion" }
 
 multiplatform-settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatformSettingsVersion" }
 multiplatform-settings-noarg = { module = "com.russhwolf:multiplatform-settings-no-arg", version.ref = "multiplatformSettingsVersion" }
