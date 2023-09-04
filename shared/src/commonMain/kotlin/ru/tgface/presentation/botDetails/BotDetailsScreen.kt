@@ -1,6 +1,8 @@
 package ru.tgface.presentation.botDetails
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -35,7 +37,11 @@ fun BotDetailsScreen(botId: Int) {
         }
     ) {
         Column {
-            Text("BotDetails = $botId")
+            BotContentListView(
+                botId = botId,
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
 
             BotOnlineStatusView(
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),

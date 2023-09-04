@@ -19,8 +19,6 @@ data class BotDetailsResponse(
 data class TemplateDto(
     @SerialName("id")
     val id: Int,
-    @SerialName("guid")
-    val guid: String,
     @SerialName("name")
     val name: String,
     @SerialName("document")
