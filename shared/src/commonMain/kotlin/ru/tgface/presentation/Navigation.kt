@@ -9,6 +9,8 @@ interface Navigation  {
 
     val navigationKey: StateFlow<NavigationRoute>
     suspend fun to(key: NavigationRoute)
+    suspend fun replace(key: NavigationRoute)
+    suspend fun back()
 }
 
 internal class NavigationImpl : Navigation {
@@ -16,8 +18,24 @@ internal class NavigationImpl : Navigation {
     private val _navigationKey = MutableStateFlow<NavigationRoute>(NavigationRoute.SignIn)
     override val navigationKey = _navigationKey.asStateFlow()
 
+    private var _stack = mutableListOf<NavigationRoute>(NavigationRoute.SignIn)
+
     override suspend fun to(key: NavigationRoute) {
+        _stack.add(key)
         _navigationKey.emit(key)
+    }
+
+    override suspend fun replace(key: NavigationRoute) {
+        _stack = mutableListOf(key)
+        _navigationKey.emit(key)
+    }
+
+    override suspend fun back() {
+        if (_stack.size > 1) {
+            _stack.removeLast()
+            val key =_stack[_stack.size - 1]
+            _navigationKey.emit(key)
+        }
     }
 }
 

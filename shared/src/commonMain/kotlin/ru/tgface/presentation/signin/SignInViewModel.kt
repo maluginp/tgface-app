@@ -17,14 +17,14 @@ class SignInViewModel (
     suspend fun signIn(email: String, password: String) = withContext(Dispatchers.IO) {
         if (httpClient.signIn(email, password)) {
             withContext(Dispatchers.Main) {
-                navigation.to(NavigationRoute.Dashboard)
+                navigation.replace(NavigationRoute.Dashboard)
             }
         }
     }
 
     suspend fun checkAuth() {
         if (httpClient.hasToken()) {
-            navigation.to(NavigationRoute.Dashboard)
+            navigation.replace(NavigationRoute.Dashboard)
         }
     }
 }

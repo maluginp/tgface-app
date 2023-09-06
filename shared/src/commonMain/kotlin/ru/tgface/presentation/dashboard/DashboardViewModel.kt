@@ -34,4 +34,9 @@ class DashboardViewModel(
     suspend fun openBot(id: Int) {
         navigation.to(NavigationRoute.BotDetails(id))
     }
+
+    suspend fun logout() {
+        httpClient.clearToken()
+        navigation.replace(NavigationRoute.SignIn)
+    }
 }

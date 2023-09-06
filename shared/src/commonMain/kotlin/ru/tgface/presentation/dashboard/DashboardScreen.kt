@@ -8,14 +8,19 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Divider
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.primarySurface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -39,7 +44,6 @@ fun DashboardScreen() {
         viewModel.loadBots()
     }
 
-
     Scaffold(
         topBar = {
             TopAppBar(
@@ -48,8 +52,24 @@ fun DashboardScreen() {
                     Text("Dashboard")
                 },
                 backgroundColor =  MaterialTheme.colors.primarySurface,
+                actions = {
+                    IconButton(
+                        modifier = Modifier.size(32.dp),
+                        onClick = {
+                            scope.launch {
+                                viewModel.logout()
+                            }
+                        }
+                    ) {
+                        Icon(
+                            Icons.Default.ExitToApp,
+                            contentDescription = null,
+                        )
+                    }
+                }
             )
-        }
+        },
+
     ) {
         if (isLoading) {
             Box(

@@ -23,12 +23,18 @@ import io.ktor.client.request.bearerAuth
 import io.ktor.client.request.get
 import io.ktor.client.statement.HttpResponse
 import io.ktor.http.HttpStatusCode
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.serialization.ExperimentalSerializationApi
 import ru.tgface.data.models.BotDetailsResponse
 import ru.tgface.data.models.BotListItemResponse
 import ru.tgface.data.models.BotOnlineStatusResponse
+import ru.tgface.presentation.Navigation
+import ru.tgface.presentation.NavigationRoute
 
-class TgFaceWebClient {
+class TgFaceWebClient (
+    private val navigation: Navigation
+) {
 
     private val baseUrl = "https://tgface.ru/api/v1"
     @OptIn(ExperimentalSerializationApi::class)
@@ -114,6 +120,10 @@ class TgFaceWebClient {
     private fun HttpResponse.removeTokenIsUnathorized() {
         if (status == HttpStatusCode.Unauthorized) {
             prefs.remove(TOKEN_KEY)
+            launch(Dispatchers.Main) {
+                navigation.replace(NavigationRoute.SignIn)
+            }
+
         }
     }
 
@@ -122,6 +132,10 @@ class TgFaceWebClient {
     }
 
     fun hasToken() = prefs[TOKEN_KEY, ""].isNotEmpty()
+
+    fun clearToken() {
+        prefs.remove(TOKEN_KEY)
+    }
 
     companion object {
         private const val TAG = "TgFaceWebClient"

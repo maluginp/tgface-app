@@ -14,11 +14,17 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.primarySurface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.launch
+import ru.tgface.presentation.getViewModel
 
 @Composable
 fun BotDetailsScreen(botId: Int) {
+
+    val viewModel = getViewModel<BotDetailsViewModel>()
+    val scope = rememberCoroutineScope()
 
     Scaffold(
         topBar = {
@@ -29,7 +35,11 @@ fun BotDetailsScreen(botId: Int) {
                 },
                 backgroundColor = MaterialTheme.colors.primarySurface,
                 navigationIcon = {
-                    IconButton(onClick = {/* Do Something*/ }) {
+                    IconButton(onClick = {
+                        scope.launch {
+                            viewModel.navigateToBack()
+                        }
+                    }) {
                         Icon(Icons.Filled.ArrowBack, null)
                     }
                 }
