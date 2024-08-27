@@ -1,4 +1,8 @@
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.SizeTransform
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.togetherWith
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -14,7 +18,12 @@ fun App() {
     val routeNavigationKey = getKoin().get<Navigation>().navigationKey.collectAsState()
 
     MaterialTheme {
-        AnimatedContent(routeNavigationKey.value) { targetState ->
+        AnimatedContent(
+            targetState = routeNavigationKey.value,
+            transitionSpec = {
+                (slideInHorizontally().togetherWith(slideOutHorizontally())).using(SizeTransform(clip = false))
+            }
+        ) { targetState ->
             when (targetState) {
                 NavigationRoute.SignIn -> {
                     SignInScreen()
